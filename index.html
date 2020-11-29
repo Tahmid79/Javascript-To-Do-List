@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+
+
+    <header class="ui inverted segment">
+        <h1 class="ui inverted center aligned header" >To do list</h1>
+    </header>
+
+
+
+    <div class="ui two column grid">
+
+
+        <div class="row">
+
+            <div class="col" style="width: 40%;  padding-left:5%;padding-top: 45px " >
+
+                <div class="ui input">
+                     <input  class="taskCreate" type="text"/>
+                </div>
+
+                <button id="task_btn" class="ui button blue"  >Add Task</button>
+
+            </div>
+
+            <div class="col">
+
+                <h2>Tasks</h2>
+
+                  <div class="row three column">
+                        <div id="ongoing" class="col ui button">Ongoing</div>
+                        <div id="done" class="col ui button">Finished</div>
+                        <div id="all_tasks"  class="col ui button">All Tasks</div>
+                  </div>
+
+                <div class="ui list" id="taskList" >
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!--Tasks Sample-->
+    <!--
+    <div>
+        <h2>Tasks</h2>
+
+        <div class="ui list">
+
+            <div class="item">
+
+
+                    <i class="large tasks icon"></i>
+
+                    <div class="content">
+                        <div class="description">The task to be done</div>
+
+                        <div class="description">
+                            <label>Done</label>
+                            <input type="checkbox"/>
+                        </div>
+
+                        <div class="row two column">
+                          <div style="position: relative ; left: 100px;" class="col ui button positive">Edit</div>
+                            <div style="position: relative ; left: 100px;" class="col ui button negative">Delete</div>
+                        </div>
+
+
+                    </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    -->
+
+    <!--Editing Sample  -->
+    <!--
+        <div class="ui segment compact">
+        <div class="ui input">
+            <input type="text" placeholder="Search...">
+        </div>
+
+
+        <div class="ui grid">
+            <div style="margin-top: 10px" class="row two column">
+                <div style="margin-left: 13px" class="col ui button positive">Save</div>
+                <div style="margin-left: 25px" class="col ui button negative">Cancel</div>
+            </div>
+        </div>
+
+    </div>
+    -->
+
+    <div class="ui basic modal">
+        <div class="ui icon header">
+            <i class="archive icon"></i>
+            Archive Old Messages
+        </div>
+        <div class="content">
+            <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+        </div>
+        <div class="actions">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i>
+                No
+            </div>
+            <div class="ui green ok inverted button">
+                <i class="checkmark icon"></i>
+                Yes
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+    <script src="script.js"></script>
+
+</html>
