@@ -1,5 +1,6 @@
 var tasks = [] ;
 
+
 const newTask = document.querySelector('.taskCreate') ;
 const taskbtn = document.querySelector('#task_btn') ;
 const list = document.querySelector('#taskList') ;
@@ -15,23 +16,67 @@ taskbtn.addEventListener('click' , () =>{
         let obj = { task : newTask.value , done : false } ;
         tasks.push(obj) ;
 
-        sortTasks() ;
-
 
         //console.log(tasks) ;
-        add_task(obj.task) ;
+        add_task_init(obj.task , tasks.length ) ;
 
+
+        sortTasks() ;
         //complete() ;
 
 
+        saveTasks() ;
 
         if(tasks.length>1) {
             sortListDir();
         }
 
+
+
     }
 
 }) ;
+
+function saveTasks(){
+
+    localStorage.setItem('tasks' , JSON.stringify(tasks) ) ;
+
+}
+
+function initialize(){
+
+        let a = JSON.parse(  localStorage.getItem('tasks')  )  ;
+
+        if(  a !==null &&   a!== []) {
+
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+
+            sortTasks() ;
+
+
+            tasks.map(item => {
+
+                let ind = tasks.indexOf( item ) + 1   ;
+                add_task_init( item.task , tasks.indexOf( item ) + 1  );
+
+                let chk =  document.querySelector(`#chk${ind}`) ;
+                chk.checked = item.done ;
+
+            }) ;
+
+            saveTasks() ;
+
+        }
+
+
+}
+
+function add_task_init(task , index){
+    let html = taskItem(task, index) ;
+    let fragment = fragmentFromString(html) ;
+    list.appendChild(fragment) ;
+    addCheckboxlistener(index) ;
+}
 
 
 
@@ -51,8 +96,8 @@ function taskItem(task , index){
                      <div id="des-${index}" class="description">${task}</div>
         
                      <div class="description">
-                            <label>Done</label>
-                            <input id="chk${index}" type="checkbox"  />
+                            <label><b>Done</b></label>
+                            <input id="chk${index}" style="margin-top: 10px; margin-left: 10px;"  type="checkbox"  />
                      </div>
                      
                      <div class="row two column">
@@ -100,7 +145,7 @@ function del_task(btn){
         sortListDir();
     }
 
-
+    saveTasks() ;
 
 
 
@@ -116,12 +161,22 @@ function addCheckboxlistener(number){
 
 
     let checkbox = document.querySelector(`#chk${number}`) ;
+    let itm = document.querySelector(`#item-${number}`) ;
+
+    let ind = Array.prototype.indexOf.call( list.children , itm );
+
+
 
     checkbox.addEventListener('change' , function(){
         //console.log(tasks) ;
 
-        tasks[number-1].done = checkbox.checked ;
+        tasks[ind].done = checkbox.checked ;
+
+        console.log('Ind = ' + ind + "  Number = " + number  ) ;
+        saveTasks() ;
+
     })  ;
+
 
 
 }
@@ -171,6 +226,8 @@ function edit(btn){
     //itm.innerHTML = "" ;
 
     itm.classList.add('disabled') ;
+
+    itm.style.opacity = "0.5" ;
 
 
     var frm = fragmentFromString(editWindow(des.textContent , id)) ;
@@ -233,6 +290,7 @@ function save(index){
         let itm = document.querySelector('#item-' + index);
 
         itm.classList.remove('disabled');
+        itm.style.opacity = "1" ;
 
         list.removeChild(editWnd);
 
@@ -255,6 +313,8 @@ function save(index){
             sortListDir();
         }
 
+        //Save tasks to local storage
+        saveTasks() ;
 
     }else{
 
@@ -270,10 +330,12 @@ function cancel(index){
     let itm = document.querySelector('#item-' + index)  ;
 
     itm.classList.remove('disabled')    ;
+    itm.style.opacity = "1" ;
 
     list.removeChild(editWnd)   ;
 
 }
+
 
 
 
@@ -383,14 +445,21 @@ function complete(){
 
 function add_task(task){
 
+
     let index = tasks.length ;
     let html = taskItem(task, index) ;
     let fragment = fragmentFromString(html) ;
     list.appendChild(fragment) ;
-    addCheckboxlistener(tasks.length) ;
+    addCheckboxlistener(index) ;
+
+    saveTasks() ;
+
 //console.log(tasks) ;
 
 }
+
+
+
 
 
 //Sort List Items
