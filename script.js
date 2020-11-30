@@ -249,7 +249,7 @@ function edit(btn){
 
 function editWindow(task, index){
 
-    let html = `<div id="win-${index}" class="ui segment compact">
+    let html = `<div style="margin-left: 45px;"  id="win-${index}" class="ui segment compact">
         <div class="ui input">
             <input id="edt-${index}" type="text" placeholder=${task}>
         </div>
